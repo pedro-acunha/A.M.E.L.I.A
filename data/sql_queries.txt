@@ -1,0 +1,13 @@
+# Query to extract SDSS galaxies within the QSO2 photometric ranges
+
+SELECT p.objID, p.modelMag_u, p.modelMag_g, p.modelMag_r, p.modelMag_i, p.modelMag_z, p.class, w.w1mpro,w.w2mpro, w.w3mpro, w.w4mpro
+FROM dr16.SpecPhotoAll AS p
+JOIN dr16.wise_xmatch AS x ON p.objID = x.sdss_objid
+JOIN dr16.wise_allsky AS w ON x.wise_cntr = w.cntr
+WHERE
+   p.modelMag_u BETWEEN 21 AND 27
+  AND p.modelMag_g BETWEEN 20 AND 26
+  AND p.modelMag_r BETWEEN 20 AND 23
+  AND p.modelMag_i BETWEEN 20 AND 23
+  AND p.modelMag_z BETWEEN 20 AND 24
+  AND p.class = 'GALAXY'
