@@ -4,7 +4,7 @@
 Machine Learning pipeline to distinguish SDSS galaxies (includes Seyferts and LINER) and Type II Quasars (QSO2) using supervised and semi-supervised classification.
 <br>
 <br>
-<br>
+
 
 ## How to use
 This work was made using Python scripts. 
