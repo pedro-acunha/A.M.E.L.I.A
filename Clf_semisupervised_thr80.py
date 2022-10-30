@@ -110,17 +110,17 @@ plot_feat='n'
 scaling_method = 'Robust'
 
 
-knn_clf = KNNeighbours_clf(task_type, 12, 0.9, X_train, X_test, y_train, y_test)
+knn_clf = KNNeighbours_clf(task_type, 12, 0.8, X_train, X_test, y_train, y_test)
 
-rf_clf = RandomForest_clf(task_type, 50, 10, 0.9, X_train, X_test, y_train, y_test,plot_feat)
+rf_clf = RandomForest_clf(task_type, 50, 10, 0.8, X_train, X_test, y_train, y_test,plot_feat)
 
-xgb_clf = XGBoost_clf(task_type, 50, 0.9, X_train, X_test, y_train, y_test,plot_feat)
+xgb_clf = XGBoost_clf(task_type, 50, 0.8, X_train, X_test, y_train, y_test,plot_feat)
 
-cb_clf = CatBoost_clf(task_type, 50,0.9, X_train, X_test, y_train, y_test,plot_feat)
+cb_clf = CatBoost_clf(task_type, 50,0.8, X_train, X_test, y_train, y_test,plot_feat)
 
-lgb_clf = LighGBM_clf(task_type, 50, 0.9, X_train, X_test, y_train, y_test,plot_feat)
+lgb_clf = LighGBM_clf(task_type, 50, 0.8, X_train, X_test, y_train, y_test,plot_feat)
 
-mlp_clf = MLP_clf(task_type, (50,100,50), 0.9, X_train, X_test, y_train, y_test)
+mlp_clf = MLP_clf(task_type, (50,100,50), 0.8, X_train, X_test, y_train, y_test)
 
 list_alg=['knn','rf','cb','xgb','lgbm','mlp']
 
