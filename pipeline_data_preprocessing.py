@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler, RobustScaler, LabelEncoder
+from sklearn.impute import KNNImputer
 from sklearn.model_selection import train_test_split
 import warnings
 warnings.filterwarnings('ignore')
@@ -32,7 +33,7 @@ def create_colours(data, features):
     df_colours = pd.DataFrame(df_features,columns = lista)
     return df_colours
 
-def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test, list_features, list_add_relation, target_variable1, target_variable2, target_variable3):
+def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test, list_features, list_add_relation, target_variable1, target_variable2, target_variable3, imputation):
     """Collects data to be used in train and test dataframes. Return Train and Test dataset.
 
     Args:
@@ -45,6 +46,7 @@ def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test
         target_variable1 (string): Target name for Type II Quasars
         target_variable2 (string): Target name for Galaxies
         target_variable3 (string): target Name for Test Data
+        imputation (string): Check if imputation should be applied
 
     Returns:
         TYPE: Description
@@ -62,6 +64,14 @@ def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test
         else:
         	df_gal = df_gal_g[list_features].copy().drop_duplicates()
         	df_gal['class'] = target_variable2
+            
+        if imputation=='True':
+            imputer = KNNImputer(missing_values=0, n_neighbors=6, weights='distance')
+            df_qso2 = pd.DataFrame(imputer.fit_transform(df_qso2), columns=[list_features])
+            imputer2 = KNNImputer(missing_values=9999, n_neighbors=6, weights='distance')
+            df_gal = pd.DataFrame(imputer2.fit_transform(df_gal), columns=[list_features])
+        else:
+            pass
 
         df = pd.concat([df_qso2,df_gal]).reset_index()
         
@@ -112,7 +122,14 @@ def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test
         	df_gal = df_gal_g[list_features].copy().drop_duplicates()
         	df_gal['class'] = target_variable2
 
-
+        if imputation=='True':
+            imputer = KNNImputer(missing_values=0, n_neighbors=6, weights='distance')
+            df_qso2 = pd.DataFrame(imputer.fit_transform(df_qso2), columns=[list_features])
+            imputer2 = KNNImputer(missing_values=9999, n_neighbors=6, weights='distance')
+            df_gal = pd.DataFrame(imputer2.fit_transform(df_gal), columns=[list_features])
+        else:
+            pass
+        
         df = pd.concat([df_gal,df_qso2]).reset_index()
 
         df_test_g = pd.read_csv(path_data_test)
@@ -166,6 +183,14 @@ def DataCollection(task_type, path_data_train1, path_data_train2, path_data_test
         df_gal_g = pd.read_csv(path_data_train2)
         df_gal = df_gal_g[list_features].copy().drop_duplicates()
         df = pd.concat([df_gal,df_qso2]).reset_index()
+        
+        if imputation=='True':
+            imputer = KNNImputer(missing_values=0, n_neighbors=6, weights='distance')
+            df_qso2 = pd.DataFrame(imputer.fit_transform(df_qso2), columns=[list_features])
+            imputer2 = KNNImputer(missing_values=9999, n_neighbors=6, weights='distance')
+            df_gal = pd.DataFrame(imputer2.fit_transform(df_gal), columns=[list_features])
+        else:
+            pass
 
         if len(list_add_relation) != 0:
             list_relation = []
@@ -210,8 +235,6 @@ def DataPreprocessing(scaling_method, dataframe_Xtrain, dataframe_Xtest, datafra
         scaler = RobustScaler().fit(X_train)
         X_train = scaler.transform(X_train)
         X_train = pd.DataFrame(X_train, columns=features)
-
-        scaler = RobustScaler().fit(X_test)
         X_test = scaler.transform(X_test)
         X_test = pd.DataFrame(X_test, columns=features)
 
@@ -219,8 +242,6 @@ def DataPreprocessing(scaling_method, dataframe_Xtrain, dataframe_Xtest, datafra
         scaler = MinMaxScaler().fit(X_train)
         X_train = scaler.transform(X_train)
         X_train = pd.DataFrame(X_train, columns=features)
-
-        scaler = MinMaxScaler().fit(X_test)
         X_test = scaler.transform(X_test)
         X_test = pd.DataFrame(X_test, columns=features)
 
