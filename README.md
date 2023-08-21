@@ -1,7 +1,6 @@
 # AMELIA: Searching for Type II Quasars
 Machine Learning pipeline to distinguish SDSS galaxies (includes Seyferts and LINER) and Type II Quasars (QSO2) using supervised and semi-supervised classification.
 
-The logo was created using Dall-E.
 <br>
 <br>
 
