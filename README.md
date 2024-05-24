@@ -27,4 +27,4 @@ The two classification tasks were performed and are described in two Python scri
 
 ## Cite us
 Thank you for your interest in the AMELIA pipeline.
-If this work was helpful, please do not forget to cite us in your publications (Cunha et al., submitted).
+If this work was helpful, please do not forget to cite us in your publications (https://arxiv.org/abs/2405.13650v1).
